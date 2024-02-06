@@ -90,7 +90,7 @@ flutter:
           weight: 700
     - family: Menlo
       fonts:
-        - asset: fonts/Menlo.ttf
+        - asset: fonts/Menlo.ttc
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,3 +1,6 @@
+import 'package:coronavirus/login/view/login_page.dart';
+import 'package:coronavirus/theme/colors.dart';
+import 'package:coronavirus/theme/fontstyle.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Coronavirus',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,10 +32,13 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: ThemeColors.primaryColor),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/': (context) => const LoginPage(),
+        LoginPage.routeName: (context) => const LoginPage(),
+      },
     );
   }
 }
@@ -105,8 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'You have pushed the button this many times:',
+              style: menlo.copyWith(fontSize: 20.0),
             ),
             Text(
               '$_counter',
