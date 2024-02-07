@@ -22,7 +22,7 @@ class CurrentModel {
   int? hospitalized;
   int? totalTestResults;
   String? lastModified;
-  dynamic recovered;
+  int? recovered;
   int? total;
   int? posNeg;
   int? deathIncrease;
