@@ -1,6 +1,7 @@
 import 'package:coronavirus/repository/store_manager.dart';
 import 'package:coronavirus/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class MyThemes {
   static final lightTheme = ThemeData(
@@ -21,6 +22,7 @@ class ThemeProvider with ChangeNotifier {
   ThemeData getTheme() => _themeData;
 
   ThemeProvider() {
+    initializeDateFormatting();
     StorageManager.readData('themeMode').then((value) {
       var themeMode = value ?? 'light';
       if (themeMode == 'light') {

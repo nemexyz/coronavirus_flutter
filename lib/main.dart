@@ -1,5 +1,6 @@
 import 'package:coronavirus/home/view/home_page.dart';
 import 'package:coronavirus/login/view/login_page.dart';
+import 'package:coronavirus/states/view/states_page.dart';
 import 'package:coronavirus/theme/fontstyle.dart';
 import 'package:coronavirus/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: themeProvider.getTheme(),
             routes: {
-              '/': (context) => const LoginPage(),
+              '/': (context) => const HomePage(),
               LoginPage.routeName: (context) => const LoginPage(),
               HomePage.routeName: (context) => const HomePage(),
+              StatesPage.routeName: (context) => const StatesPage(),
             },
           );
         },
