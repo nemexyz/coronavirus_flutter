@@ -126,7 +126,7 @@ class _HomeViewState extends State<HomeView> {
             return const SizedBox();
           }
           return FloatingActionButton(
-            onPressed: _regions,
+            onPressed: () => Navigator.of(context).pushNamed("/states"),
             backgroundColor: ThemeColors.primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(64),
@@ -360,9 +360,5 @@ class _HomeViewState extends State<HomeView> {
         );
       },
     );
-  }
-
-  void _regions() {
-    debugPrint("Regions");
   }
 }
