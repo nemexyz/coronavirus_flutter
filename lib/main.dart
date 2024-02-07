@@ -1,3 +1,4 @@
+import 'package:coronavirus/home/view/home_page.dart';
 import 'package:coronavirus/login/view/login_page.dart';
 import 'package:coronavirus/theme/colors.dart';
 import 'package:coronavirus/theme/fontstyle.dart';
@@ -36,8 +37,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => const LoginPage(),
+        '/': (context) => const HomePage(),
         LoginPage.routeName: (context) => const LoginPage(),
+        HomePage.routeName: (context) => const HomePage(),
       },
     );
   }
