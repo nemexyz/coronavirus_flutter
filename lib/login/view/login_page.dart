@@ -5,12 +5,14 @@ import 'package:coronavirus/theme/colors.dart';
 import 'package:coronavirus/theme/fontstyle.dart';
 import 'package:coronavirus/theme/loading.dart';
 import 'package:coronavirus/theme/styles.dart';
+import 'package:coronavirus/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  static const String routeName = "login";
+  static const String routeName = "/login";
 
   const LoginPage({Key? key}) : super(key: key);
 
@@ -52,10 +54,12 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: null,
-      backgroundColor: Colors.white,
+      backgroundColor:
+          themeProvider.isDarkMode() ? ThemeColors.darkGrey : ThemeColors.white,
       body: BlocConsumer<LoginBloc, LoginState>(
         listenWhen: (previous, current) =>
             current.status == LoginStatus.notFound ||
@@ -74,10 +78,10 @@ class _LoginViewState extends State<LoginView> {
               ),
             );
           } else if (state.status == LoginStatus.success) {
-            /* Navigator.of(context).pushNamedAndRemoveUntil(
-              "/home",
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              '/home',
               (route) => false,
-            ); */
+            );
           }
         },
         builder: (context, state) {
@@ -101,7 +105,9 @@ class _LoginViewState extends State<LoginView> {
                         "Bienvenido a:",
                         style: arial.copyWith(
                           fontSize: 12,
-                          color: ThemeColors.grey,
+                          color: themeProvider.isDarkMode()
+                              ? ThemeColors.white
+                              : ThemeColors.grey,
                         ),
                       ),
                     ),
@@ -112,7 +118,9 @@ class _LoginViewState extends State<LoginView> {
                         "Evertec",
                         style: arialbold.copyWith(
                           fontSize: 34,
-                          color: ThemeColors.grey,
+                          color: themeProvider.isDarkMode()
+                              ? ThemeColors.white
+                              : ThemeColors.grey,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -144,7 +152,9 @@ class _LoginViewState extends State<LoginView> {
                           alignLabelWithHint: true,
                           hintStyle: arial.copyWith(
                             fontSize: 14,
-                            color: Colors.black,
+                            color: themeProvider.isDarkMode()
+                                ? ThemeColors.white
+                                : ThemeColors.black,
                           ),
                           fillColor: Colors.transparent,
                           focusedBorder: textFormFieldBorder,
@@ -160,7 +170,9 @@ class _LoginViewState extends State<LoginView> {
                               item.value,
                               style: arial.copyWith(
                                 fontSize: 14,
-                                color: Colors.black,
+                                color: themeProvider.isDarkMode()
+                                    ? ThemeColors.white
+                                    : ThemeColors.black,
                               ),
                             ),
                           );

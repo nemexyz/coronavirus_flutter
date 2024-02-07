@@ -1,14 +1,16 @@
+import 'package:coronavirus/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CircularLoading extends StatelessWidget {
-  final bool dark;
-  const CircularLoading({super.key, this.dark = false});
+  const CircularLoading({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
-      color: dark ? Colors.black : Colors.white,
-      child: const Center(
+      color: themeProvider.isDarkMode() ? Colors.black : Colors.white,
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -18,7 +20,11 @@ class CircularLoading extends StatelessWidget {
                 SizedBox(
                   width: 150,
                   height: 150,
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: themeProvider.isDarkMode()
+                        ? Colors.white
+                        : Colors.black,
+                  ),
                 ),
               ],
             ),

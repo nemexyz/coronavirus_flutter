@@ -43,6 +43,8 @@ dependencies:
   equatable: ^2.0.5
   device_info_plus: ^9.1.2
   shared_preferences: ^2.2.2
+  intl:
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:
