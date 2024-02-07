@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:coronavirus/home/model/current_model.dart';
@@ -10,6 +11,7 @@ class CovidRepository {
   static const current = '/v1/us/current.json';
   static const info = '/v1/states/info.json';
   static const states = '/v1/states/current.json';
+  static const infoByState = '/v1/states/{state}/info.json';
 
   static const flag = 'https://flagcdn.com/w160/';
 
@@ -49,6 +51,21 @@ class CovidRepository {
       headers: {HttpHeaders.contentTypeHeader: 'application/json'},
     );
     final object = statesCurrentModelFromJson(response.body);
+
+    if (response.statusCode == 200) {
+      return object;
+    } else {
+      throw 'Error al obtener datos de la API';
+    }
+  }
+
+  Future<StateInfoModel> getStateInfo(String state) async {
+    final response = await _client.get(
+      Uri.parse('$url$infoByState'.replaceAll('{state}', state)),
+      headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+    );
+    final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+    final object = StateInfoModel.fromJson(jsonResponse);
 
     if (response.statusCode == 200) {
       return object;

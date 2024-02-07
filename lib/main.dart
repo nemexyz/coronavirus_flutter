@@ -1,5 +1,6 @@
 import 'package:coronavirus/home/view/home_page.dart';
 import 'package:coronavirus/login/view/login_page.dart';
+import 'package:coronavirus/region/view/region_page.dart';
 import 'package:coronavirus/states/view/states_page.dart';
 import 'package:coronavirus/theme/fontstyle.dart';
 import 'package:coronavirus/theme/theme.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
               LoginPage.routeName: (context) => const LoginPage(),
               HomePage.routeName: (context) => const HomePage(),
               StatesPage.routeName: (context) => const StatesPage(),
+              RegionPage.routeName: (context) => const RegionPage(),
             },
           );
         },
