@@ -5,6 +5,7 @@ const TextStyle arial = TextStyle(
 );
 const TextStyle arialbold = TextStyle(
   fontFamily: "Arial Bold",
+  fontWeight: FontWeight.bold,
 );
 const TextStyle menlo = TextStyle(
   fontFamily: "Menlo",
