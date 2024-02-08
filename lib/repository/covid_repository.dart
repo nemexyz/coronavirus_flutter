@@ -12,6 +12,7 @@ class CovidRepository {
   static const info = '/v1/states/info.json';
   static const states = '/v1/states/current.json';
   static const infoByState = '/v1/states/{state}/info.json';
+  static const currentByState = '/v1/states/{state}/current.json';
 
   static const flag = 'https://flagcdn.com/w160/';
 
@@ -66,6 +67,21 @@ class CovidRepository {
     );
     final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
     final object = StateInfoModel.fromJson(jsonResponse);
+
+    if (response.statusCode == 200) {
+      return object;
+    } else {
+      throw 'Error al obtener datos de la API';
+    }
+  }
+
+  Future<StateCurrentModel> getStateCurrent(String state) async {
+    final response = await _client.get(
+      Uri.parse('$url$currentByState'.replaceAll('{state}', state)),
+      headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+    );
+    final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+    final object = StateCurrentModel.fromJson(jsonResponse);
 
     if (response.statusCode == 200) {
       return object;

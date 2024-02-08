@@ -6,4 +6,5 @@ class Images {
   static const String google = 'assets/images/google.png';
   static const String facebook = 'assets/images/facebook.png';
   static const String instagram = 'assets/images/instagram.png';
+  static const String loader = 'assets/images/loader.png';
 }

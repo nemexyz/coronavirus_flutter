@@ -7,12 +7,12 @@ List<StateCurrentModel> statesCurrentModelFromJson(String str) =>
 class StateCurrentModel {
   int date;
   String state;
-  int positive;
+  int? positive;
   int? probableCases;
   int? negative;
   int? pending;
-  String totalTestResultsSource;
-  int totalTestResults;
+  String? totalTestResultsSource;
+  int? totalTestResults;
   int? hospitalizedCurrently;
   int? hospitalizedCumulative;
   int? inIcuCurrently;
@@ -23,7 +23,7 @@ class StateCurrentModel {
   String? lastUpdateEt;
   DateTime? dateModified;
   String? checkTimeEt;
-  int death;
+  int? death;
   int? hospitalized;
   int? hospitalizedDischarged;
   DateTime? dateChecked;
@@ -46,21 +46,21 @@ class StateCurrentModel {
   int? totalTestsAntigen;
   int? positiveTestsAntigen;
   String fips;
-  int positiveIncrease;
-  int negativeIncrease;
-  int total;
-  int totalTestResultsIncrease;
-  int posNeg;
+  int? positiveIncrease;
+  int? negativeIncrease;
+  int? total;
+  int? totalTestResultsIncrease;
+  int? posNeg;
   dynamic dataQualityGrade;
-  int deathIncrease;
-  int hospitalizedIncrease;
+  int? deathIncrease;
+  int? hospitalizedIncrease;
   String hash;
-  int commercialScore;
-  int negativeRegularScore;
-  int negativeScore;
-  int positiveScore;
-  int score;
-  String grade;
+  int? commercialScore;
+  int? negativeRegularScore;
+  int? negativeScore;
+  int? positiveScore;
+  int? score;
+  String? grade;
 
   StateCurrentModel({
     required this.date,

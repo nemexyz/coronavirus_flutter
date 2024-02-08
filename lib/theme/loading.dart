@@ -1,7 +1,9 @@
+import 'package:coronavirus/theme/assets.dart';
 import 'package:coronavirus/theme/colors.dart';
 import 'package:coronavirus/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 class CircularLoading extends StatelessWidget {
   const CircularLoading({super.key});
@@ -30,6 +32,25 @@ class CircularLoading extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class VirusLoader extends StatelessWidget {
+  const VirusLoader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: HeartbeatProgressIndicator(
+        child: SizedBox(
+          height: 40.0,
+          child: Image(
+            height: MediaQuery.of(context).size.height,
+            image: const AssetImage(Images.loader),
+          ),
         ),
       ),
     );

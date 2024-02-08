@@ -33,7 +33,7 @@ class StatesBloc extends Bloc<StatesEvent, StatesState> {
 
         states.add(
           StateViewModel(
-            state: state.state,
+            state: state.state.toLowerCase(),
             url: '${CovidRepository.flag}us-${state.state.toLowerCase()}.png',
             name: state.name,
             total: currentInfo.total.toString(),
@@ -48,6 +48,7 @@ class StatesBloc extends Bloc<StatesEvent, StatesState> {
       emit(state.copyWith(status: StatesStatus.success, states: states));
     } catch (error, stacktrace) {
       debugPrint(error.toString());
+      debugPrint(stacktrace.toString());
       emit(
         state.copyWith(status: StatesStatus.failure, message: error.toString()),
       );

@@ -1,3 +1,4 @@
+import 'package:coronavirus/region/view/detail_card.dart';
 import 'package:coronavirus/repository/covid_repository.dart';
 import 'package:coronavirus/region/region.dart';
 import 'package:coronavirus/theme/colors.dart';
@@ -15,12 +16,13 @@ class RegionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = ModalRoute.of(context)!.settings.arguments as String;
     return RepositoryProvider(
       create: (context) => CovidRepository(),
       child: BlocProvider(
         create: (context) => RegionBloc(
           repository: RepositoryProvider.of<CovidRepository>(context),
-        )..add(LoadRegion()),
+        )..add(LoadRegion(region: state)),
         child: const RegionView(),
       ),
     );
@@ -38,18 +40,11 @@ class _RegionViewState extends State<RegionView> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text("Nombre de la región"),
-        centerTitle: false,
-        titleSpacing: 0,
-        backgroundColor: themeProvider.isDarkMode()
-            ? ThemeColors.darkGrey
-            : ThemeColors.white,
-        shadowColor: ThemeColors.grey,
-        elevation: 2,
-      ),
+      appBar: null,
       backgroundColor:
           themeProvider.isDarkMode() ? ThemeColors.grey2 : ThemeColors.white,
       body: BlocConsumer<RegionBloc, RegionState>(
@@ -69,7 +64,97 @@ class _RegionViewState extends State<RegionView> {
           if (state.status == RegionStatus.loading) {
             return const CircularLoading();
           }
-          return const Center(child: Text("Region"));
+          return CustomScrollView(
+            shrinkWrap: true,
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: themeProvider.isDarkMode()
+                    ? ThemeColors.grey2
+                    : ThemeColors.white,
+                expandedHeight: height * 0.22,
+                pinned: true,
+                elevation: 8.0,
+                flexibleSpace: FlexibleSpaceBar(
+                  titlePadding: const EdgeInsetsDirectional.only(
+                    start: 0,
+                    bottom: 16,
+                  ),
+                  centerTitle: true,
+                  background: const VirusLoader(),
+                  title: Text(
+                    state.name,
+                    style: arialbold.copyWith(
+                        fontSize: 20,
+                        color: themeProvider.isDarkMode()
+                            ? ThemeColors.white
+                            : ThemeColors.grey),
+                  ),
+                ),
+              ),
+              SliverFillRemaining(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 20,
+                  ),
+                  shrinkWrap: true,
+                  children: [
+                    Column(children: <Widget>[
+                      DetailCard(
+                        title: "Casos totales",
+                        subtitle: state.totalCases,
+                        icon: Icons.masks,
+                        iconColor: Colors.blue,
+                      ),
+                      DetailCard(
+                        title: "Casos confirmados",
+                        subtitle: state.confirmedCases,
+                        icon: Icons.security,
+                        iconColor: Colors.green,
+                      ),
+                      DetailCard(
+                        title: "Pruebas negativas",
+                        subtitle: state.negativeTests,
+                        icon: Icons.person,
+                        iconColor: Colors.red,
+                      ),
+                      DetailCard(
+                        title: "Pruebas positivas",
+                        subtitle: state.positiveTests,
+                        icon: Icons.access_time,
+                        iconColor: Colors.purple,
+                      ),
+                      DetailCard(
+                        title: "Fallecidos",
+                        subtitle: state.deceased,
+                        icon: Icons.assignment,
+                        iconColor: Colors.blue,
+                      ),
+                      DetailCard(
+                        title: "Recuperados",
+                        iconColor: Colors.red,
+                        icon: Icons.airline_seat_individual_suite,
+                        subtitle: state.recovered,
+                      ),
+                      DetailCard(
+                        title: "Pruebas pendientes",
+                        iconColor: Colors.green,
+                        icon: Icons.security_update_good,
+                        subtitle: state.pendingTests,
+                      ),
+                      DetailCard(
+                        title: "Notas (en ingles)",
+                        subtitle: state.notes,
+                        icon: Icons.add_circle,
+                        iconColor: Colors.deepOrange,
+                        smallText: true,
+                      ),
+                    ]),
+                  ],
+                ),
+              )
+            ],
+          );
         },
       ),
     );

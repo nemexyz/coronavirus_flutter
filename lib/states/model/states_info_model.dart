@@ -6,17 +6,17 @@ List<StateInfoModel> statesInfoModelFromJson(String str) =>
 
 class StateInfoModel {
   String state;
-  String notes;
-  String covid19Site;
+  String? notes;
+  String? covid19Site;
   String? covid19SiteSecondary;
   String? covid19SiteTertiary;
   String? covid19SiteQuaternary;
   String? covid19SiteQuinary;
   String? twitter;
-  String covid19SiteOld;
-  String covidTrackingProjectPreferredTotalTestUnits;
-  String covidTrackingProjectPreferredTotalTestField;
-  String totalTestResultsField;
+  String? covid19SiteOld;
+  String? covidTrackingProjectPreferredTotalTestUnits;
+  String? covidTrackingProjectPreferredTotalTestField;
+  String? totalTestResultsField;
   String pui;
   bool pum;
   String name;

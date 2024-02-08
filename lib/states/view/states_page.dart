@@ -1,3 +1,4 @@
+import 'package:coronavirus/region/view/region_page.dart';
 import 'package:coronavirus/repository/covid_repository.dart';
 import 'package:coronavirus/states/states.dart';
 import 'package:coronavirus/theme/colors.dart';
@@ -115,7 +116,13 @@ class _StatesViewState extends State<StatesView> {
                             loadingBuilder: (context, child, progress) {
                               return progress == null
                                   ? child
-                                  : const CircularProgressIndicator();
+                                  : const SizedBox(
+                                      height: 40,
+                                      width: 40,
+                                      child: CircularProgressIndicator(
+                                        color: ThemeColors.grey,
+                                      ),
+                                    );
                             },
                             errorBuilder: (context, error, stackTrace) {
                               return const Icon(Icons.error_outline, size: 40);
@@ -166,10 +173,10 @@ class _StatesViewState extends State<StatesView> {
                     ),
                   ),
                   onTap: () {
-                    /* Navigator.of(context).pushNamed(
-                      RegionsPage.routeName,
+                    Navigator.of(context).pushNamed(
+                      RegionPage.routeName,
                       arguments: item.state,
-                    ); */
+                    );
                   },
                 ),
               );
