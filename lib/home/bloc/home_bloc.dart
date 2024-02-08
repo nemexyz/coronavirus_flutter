@@ -1,7 +1,10 @@
+import 'dart:io' show Platform;
+
 import 'package:bloc/bloc.dart';
 import 'package:coronavirus/repository/covid_repository.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 part 'home_event.dart';
@@ -15,7 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<LoadHome>(_onLoad);
   }
 
-  void _onLoad(LoadHome event, Emitter<HomeState> emit) async {
+  Future<void> _onLoad(LoadHome event, Emitter<HomeState> emit) async {
     emit(state.copyWith(status: HomeStatus.loading));
 
     try {
@@ -33,11 +36,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         status: HomeStatus.success,
         time: DateFormat("HH:mm a").format(DateTime.now()).toLowerCase(),
         date: DateFormat("dd MM yyyy").format(date),
-        deviceName: info['name'],
-        deviceBrand: info['localizedModel'],
+        deviceName: Platform.isIOS ? info['name'] : info['device'],
+        deviceBrand: Platform.isIOS ? info['localizedModel'] : info['brand'],
         deviceType: info['isPhysicalDevice'] == 'true' ? 'Físico' : 'Emulador',
         deviceModel: info['model'],
-        osVersion: info['systemName'] + ' ' + info['systemVersion'],
+        osVersion: Platform.isIOS
+            ? info['systemName'] + ' ' + info['systemVersion']
+            : info['version']['sdkInt'].toString(),
         totalCases: data.total.toString(),
         negativeTests: data.negative.toString(),
         deceased: data.death.toString(),
@@ -47,7 +52,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         recovered:
             data.recovered != null ? data.recovered.toString() : 'Sin datos',
       ));
-    } catch (error) {
+    } catch (error, stacktrace) {
+      debugPrint(error.toString());
+      debugPrint(stacktrace.toString());
       emit(
         state.copyWith(status: HomeStatus.failure, message: error.toString()),
       );

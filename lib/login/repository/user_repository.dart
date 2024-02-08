@@ -45,8 +45,6 @@ class UserRepository {
     required String identification,
     required String password,
   }) async {
-    await Future.delayed(const Duration(seconds: 1));
-
     var user = UserModel(
       type: type,
       identification: identification,

@@ -15,7 +15,7 @@ class RegionBloc extends Bloc<RegionEvent, RegionState> {
     on<LoadRegion>(_onLoad);
   }
 
-  void _onLoad(LoadRegion event, Emitter<RegionState> emit) async {
+  Future<void> _onLoad(LoadRegion event, Emitter<RegionState> emit) async {
     emit(state.copyWith(status: RegionStatus.loading));
 
     try {
@@ -39,7 +39,7 @@ class RegionBloc extends Bloc<RegionEvent, RegionState> {
             data.positive != null ? data.positive.toString() : 'Sin datos',
         recovered:
             data.recovered != null ? data.recovered.toString() : 'Sin datos',
-        notes: info.notes != null ? info.notes : 'Sin notas',
+        notes: info.notes ?? 'Sin notas',
       ));
     } catch (error, stacktrace) {
       debugPrint(error.toString());

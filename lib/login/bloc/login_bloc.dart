@@ -14,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<RegisterSubmit>(_onRegister);
   }
 
-  void _onSubmit(LoginSubmit event, Emitter<LoginState> emit) async {
+  Future<void> _onSubmit(LoginSubmit event, Emitter<LoginState> emit) async {
     emit(state.copyWith(status: LoginStatus.loading));
 
     try {
@@ -41,9 +41,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  void _onRegister(RegisterSubmit event, Emitter<LoginState> emit) async {
-    emit(state.copyWith(status: LoginStatus.loading));
-
+  Future<void> _onRegister(
+    RegisterSubmit event,
+    Emitter<LoginState> emit,
+  ) async {
     try {
       await _repository.register(
         type: event.type,

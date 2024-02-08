@@ -16,7 +16,7 @@ class StatesBloc extends Bloc<StatesEvent, StatesState> {
     on<LoadStates>(_onLoad);
   }
 
-  void _onLoad(LoadStates event, Emitter<StatesState> emit) async {
+  Future<void> _onLoad(LoadStates event, Emitter<StatesState> emit) async {
     emit(state.copyWith(status: StatesStatus.loading));
 
     try {
